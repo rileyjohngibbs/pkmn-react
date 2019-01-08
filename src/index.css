@@ -5,9 +5,25 @@
 
 button.move {
   background-color: lightblue;
+  margin: 2px 0px 2px 0px;
 }
 
 button.move:disabled {
   background-color: initial;
   color: grey;
+}
+
+button.switcher {
+  background-color: lightgray;
+  width: 8em;
+  margin: 2px 2px 2px 0px;
+}
+
+button.open {
+  background-color: pink;
+}
+
+button.stable-pkmn {
+  background-color: lightgray;
+  margin: 2px;
 }
