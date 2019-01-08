@@ -5,6 +5,7 @@
 
 button.move {
   background-color: lightblue;
+  width: 8em;
   margin: 2px 0px 2px 0px;
 }
 
