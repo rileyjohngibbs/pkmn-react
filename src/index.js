@@ -38,11 +38,11 @@ class Pokemon {
 class Battle extends React.Component {
   constructor(props) {
     super(props);
-    this.first = new Pokemon(props.first);
-    this.second = new Pokemon(props.second);
+    this.firstStable = props.firstStable;
+    this.secondStable = props.secondStable;
     this.state = {
-      first: this.first,
-      second: this.second,
+      first: this.firstStable[0],
+      second: this.secondStable[1],
       stable: Object.keys(POKEMON),
       combatMessage: 'Battle has started!',
     }
@@ -109,13 +109,17 @@ class Battle extends React.Component {
             <span className="pokemon-name">{this.state.first.name}</span><br />
             {this.state.first.statusMessage()}<br />
             {this.renderAttackButton(this.state.first, this.state.second)}
-            <Stable pokemonControl={(pkmn) => {this.setState({first: pkmn});}} />
+            <Stable
+              pokemonControl={(pkmn) => {this.setState({first: pkmn});}}
+              pokemon={this.firstStable} />
           </div>
           <div>
             <span className="pokemon-name">{this.state.second.name}</span><br />
             {this.state.second.statusMessage()}<br />
             {this.renderAttackButton(this.state.second, this.state.first)}
-            <Stable pokemonControl={(pkmn) => {this.setState({second: pkmn});}} />
+            <Stable
+              pokemonControl={(pkmn) => {this.setState({second: pkmn});}}
+              pokemon={this.secondStable} />
           </div>
           <div>
             {this.state.combatMessage}
@@ -130,14 +134,14 @@ class Stable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemon: Object.keys(POKEMON),
+      pokemon: this.props.pokemon,
       isOpen: false,
       control: this.props.pokemonControl,
     }
   }
 
   tagIn(pkmn) {
-    this.state.control(new Pokemon(pkmn));
+    this.state.control(pkmn);
     this.setState({isOpen: false});
   }
 
@@ -155,7 +159,7 @@ class Stable extends React.Component {
             <button
               className="stable-pkmn"
               key={i} onClick={() => this.tagIn(p)}>
-                {p}
+                {p.name} ({p.hp} hp)
             </button>
           ))
           : null
@@ -165,7 +169,10 @@ class Stable extends React.Component {
   }
 }
 
+const firstStable = ["Squirtle", "Bulbasaur", "Geodude"].map((p) => new Pokemon(p));
+const secondStable = ["Squirtle", "Charmander", "Pidgey"].map((p) => new Pokemon(p));
+
 ReactDOM.render(
-  <Battle first="Charmander" second="Squirtle" />,
+  <Battle firstStable={firstStable} secondStable={secondStable} />,
   document.getElementById('root')
 );
