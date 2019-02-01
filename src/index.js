@@ -12,6 +12,7 @@ class Pokemon {
     this.hp = base.hp;
     this.attack = base.attack;
     this.types = base.types;
+    this.imageSrc = base.image;
   }
 
   toHit(target) {
@@ -104,8 +105,10 @@ class Battle extends React.Component {
   render() {
     return (
       <div>
-        <div className="combat">
-          <div>
+        <h1 style={{padding: '10% 10% 0 10%'}}>Pokémon Battle</h1>
+        <div className="combat" style={{padding: '0 10%'}}>
+          <div style={{height: '100px'}}>
+            <img src={this.state.first.imageSrc} alt={this.state.first.name} style={{float: 'left', maxHeight: '100%'}}></img>
             <span className="pokemon-name">{this.state.first.name}</span><br />
             {this.state.first.statusMessage()}<br />
             {this.renderAttackButton(this.state.first, this.state.second)}
@@ -113,7 +116,8 @@ class Battle extends React.Component {
               pokemonControl={(pkmn) => {this.setState({first: pkmn});}}
               pokemon={this.firstStable} />
           </div>
-          <div>
+          <div style={{height: '100px'}}>
+            <img src={this.state.second.imageSrc} alt={this.state.second.name} style={{float: 'left', maxHeight: '100%'}}></img>
             <span className="pokemon-name">{this.state.second.name}</span><br />
             {this.state.second.statusMessage()}<br />
             {this.renderAttackButton(this.state.second, this.state.first)}
