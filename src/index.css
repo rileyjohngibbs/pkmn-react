@@ -1,3 +1,8 @@
+button {
+  display: inline-flex;
+  align-items: center;
+}
+
 .pokemon-name {
   font-weight: bold;
   font-size: large;
@@ -26,5 +31,42 @@ button.open {
 
 button.stable-pkmn {
   background-color: lightgray;
-  margin: 2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stable {
+  width: inherit;
+}
+
+img.pkmn-image {
+  float: left;
+  height: inherit;
+}
+
+button.reset {
+  background-color: pink;
+  width: 100%;
+}
+
+.trainer {
+  height: 10em;
+  position: relative;
+  margin: auto;
+}
+
+.open-stable {
+  width: inherit;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: grey;
+  padding: 5px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.btn-img {
+  height: 1.5em;
 }
