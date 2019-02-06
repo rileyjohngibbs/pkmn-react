@@ -4,41 +4,8 @@ import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from 'react-cookie';
 
 import { POKEMON, TYPES } from './pokemonData';
-
-class Pokemon {
-  constructor(name, hp) {
-    const base = POKEMON[name];
-    this.name = base.name;
-    this.hp = hp !== undefined ? hp : base.hp;
-    this.attack = base.attack;
-    this.types = base.types;
-    this.imageSrc = base.image;
-  }
-
-  toHit(target) {
-    return Math.random() >= 0.1;
-  }
-
-  damage(target) {
-    return Array(this.attack).fill(0).reduce((a, b) => a + Math.ceil(Math.random()*6), 0);
-  }
-
-  takeDamage(damage) {
-    this.hp = Math.max(this.hp - damage, 0);
-  }
-
-  statusMessage() {
-    return (
-      this.hp === 0
-      ? this.name + ' has fainted!'
-      : this.name + ' has ' + this.hp + ' hit points.'
-    );
-  }
-
-  recordState() {
-     return { name: this.name, hp: this.hp };
-  }
-}
+import Pokemon from './pokemon';
+import Stable from './stable';
 
 const firstStable = [{name: "Squirtle"}, {name: "Charmander"}, {name: "Bulbasaur"}];
 const secondStable = [{name: "Pidgey"}, {name: "Geodude"}, {name: "Squirtle"}];
@@ -168,51 +135,6 @@ class Battle extends React.Component {
           </button>
         </div>
       </div></div>
-    );
-  }
-}
-
-class Stable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pokemon: this.props.pokemon,
-      isOpen: false,
-      control: this.props.pokemonControl,
-    }
-  }
-
-  tagIn(pkmn) {
-    this.state.control(pkmn);
-    this.setState({isOpen: false});
-  }
-
-  render() {
-    return (
-      <div className="stable">
-        <button
-          className={'switcher' + (this.state.isOpen ? ' open' : '')}
-          onClick={() => {this.setState({isOpen: !this.state.isOpen});}}>
-          {!this.state.isOpen ? 'Switch Out' : 'Cancel'}
-        </button>
-        {
-          this.state.isOpen
-          ? <div className="open-stable">
-              {this.state.pokemon.map((p, i) => (
-                <button
-                  className="stable-pkmn stable-btn"
-                  key={i} onClick={() => this.tagIn(p)}>
-                    <img className="btn-img" src={p.imageSrc} /> {p.name} ({p.hp} hp)
-                </button>
-              ))} <br />
-              <button className="reset stable-btn"
-                onClick={() => this.setState({isOpen: false})}>
-                Cancel
-              </button>
-            </div>
-          : null 
-        }
-      </div>
     );
   }
 }
